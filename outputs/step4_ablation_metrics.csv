@@ -1,0 +1,15 @@
+scenario,model,test_mae,test_rmse,expectation_met,note
+split_step1,physics_full,11.368961060001325,14.623492514747596,,
+split_step1,baseline_untuned,15.850229439004645,18.616334448629907,,
+split_step1,baseline_tuned,8.541531377778702,13.475587641612822,,
+split_step1,physics_tuned,7.584541143962038,12.865564976664556,,
+split_step1,physics_h_only,26.495980267316906,34.03849478661525,,
+split_step1,physics_p_only,11.265818615017977,13.943211256960815,,
+all_data_step1,physics_full,9.708902204467359,13.012293688263322,,
+all_data_step1,baseline_untuned,15.850229439004645,18.616334448629907,,
+all_data_step1,physics_h_only,25.799008429711055,32.326785037212446,,
+all_data_step1,physics_p_only,11.395900810278496,14.063061234520783,,
+expectation_check,A1_step1_all_improves_full_physics,-1.6600588555339666,-1.6111988264842747,True,delta = all_data_step1 - split_step1 (negative is better)
+expectation_check,A2_tuned_baseline_vs_untuned_and_tuned_physics,7.584541143962038,12.865564976664556,True,needs tuned_baseline<untuned_baseline and tuned_physics<tuned_baseline on at least one axis
+expectation_check,A3_h_only_under_full,15.12701920731558,19.415002271867657,True,positive delta means h-only worse than full
+expectation_check,A3_p_only_under_full,-0.10314244498334801,-0.6802812577867812,False,positive delta means p-only worse than full

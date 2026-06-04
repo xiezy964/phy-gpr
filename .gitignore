@@ -1,4 +1,6 @@
 .DS_Store
 __pycache__/
 *.pyc
-outputs/
+outputs/.DS_Store
+outputs/step1_model.pth
+outputs/step2_model.pkl
