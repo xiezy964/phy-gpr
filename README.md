@@ -4,7 +4,7 @@ Hierarchical physics-informed Gaussian process regression for yield strength pre
 
 ## Overview
 
-This repository contains a small research pipeline for modeling the relationship between laser powder bed fusion process parameters and mechanical response using Gaussian process regression (GPR).
+This repository contains a research pipeline for modeling the relationship between laser powder bed fusion process parameters and mechanical response using Gaussian process regression (GPR).
 
 The workflow is organized into three main stages:
 
@@ -52,10 +52,6 @@ The data preparation code currently:
 - uses Gaussian sampling to expand each original row into 100 synthetic samples
 - splits train and test sets by original group id, not by individual augmented rows
 
-Important notes:
-
-- `data/Ti-6Al-4V PSP feature table.xlsx` is present in the repository but is not used by the current default pipeline
-- the spreadsheet layout is assumed by fixed column indices in [src/data_prep.py](/Users/xiezy/Documents/github/phy-gpr/src/data_prep.py:1)
 
 ## Repository Layout
 
@@ -102,12 +98,6 @@ pip install numpy pandas scipy scikit-learn matplotlib openpyxl
 python run_pipeline.py
 ```
 
-Optional argument:
-
-```bash
-python run_pipeline.py --test-groups 6
-```
-
 This script is intended to run:
 
 1. data preparation
@@ -131,27 +121,6 @@ python run_ablations.py --test-groups 6 --baseline-restarts 10 --physics-restart
 
 Generated artifacts are written to `outputs/`.
 
-Typical files include:
-
-- `step1_metrics.csv`
-- `step1_predictions.png`
-- `step1_errors.png`
-- `step1_model.pth`
-- `step1_scalers.pkl`
-- `step2_metrics.csv`
-- `step2_predictions.png`
-- `step2_errors.png`
-- `step2_pv_maps.png`
-- `step2_pv_map_data.csv`
-- `step2_baseline_pv_maps.png`
-- `step2_baseline_pv_map_data.csv`
-- `step2_model.pkl`
-- `step2_scalers.pkl`
-- `step3_metrics_summary.csv`
-- `step3_convergence_data.csv`
-- `step3_convergence.png`
-- `step4_ablation_metrics.csv`
-
 These outputs cover:
 
 - train and test metrics
@@ -160,41 +129,3 @@ These outputs cover:
 - optimization convergence traces
 - serialized model artifacts
 
-## Method Notes
-
-The implementation combines data-driven regression with simple physics-inspired feature construction:
-
-- Step 1 estimates distributions over grain size and porosity
-- Step 2 builds physics-related latent terms from those uncertain quantities
-- uncertainty is propagated into the final GP rather than using only point estimates
-- Step 3 treats the trained predictor as a surrogate model for inverse search
-
-From the current code, the physics-informed formulation is primarily implemented in [src/step2_gpr.py](/Users/xiezy/Documents/github/phy-gpr/src/step2_gpr.py:1).
-
-## Reproducibility
-
-The code uses a fixed random seed defined in [src/utils.py](/Users/xiezy/Documents/github/phy-gpr/src/utils.py:1):
-
-- `RANDOM_SEED = 42`
-
-Train/test splitting and sample augmentation are both seed-controlled.
-
-## Current Limitations
-
-There are a few repo-specific caveats worth knowing before you run it:
-
-- `run_pipeline.py` currently imports `src.report.write_technical_report`, but `src/report.py` is not present in this repository
-- because of that missing module, `python run_pipeline.py` will fail unless that report module is restored or the call is removed
-- the current README describes the intended workflow and the available source files as they exist now
-- the project does not yet include a pinned `requirements.txt`, `pyproject.toml`, or environment file
-
-## Suggested Next Improvements
-
-- add a `requirements.txt` or `pyproject.toml`
-- restore or remove the missing report-generation module
-- document the exact spreadsheet schema in more detail
-- include a short example of expected metric ranges or figures
-
-## License
-
-This repository already includes a [LICENSE](/Users/xiezy/Documents/github/phy-gpr/LICENSE:1) file. See it for usage terms.
