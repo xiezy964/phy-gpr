@@ -23,12 +23,12 @@ Step 1 predicts latent or intermediate material descriptors:
 - grain size `d`
 - porosity `phi`
 
-Step 2 predicts ultimate tensile strength `UTS` with two model families:
+Step 2 predicts yield strength `YS` with two model families:
 
 - a baseline GP using only process parameters
 - a physics-informed GP that propagates Step 1 descriptor uncertainty into the final prediction
 
-Step 3 performs inverse optimization over `(P, v)` to match held-out target `UTS` values.
+Step 3 performs inverse optimization over `(P, v)` to match held-out target `YS` values.
 
 Step 4 runs ablations to compare:
 
@@ -102,7 +102,7 @@ This script is intended to run:
 
 1. data preparation
 2. Step 1 dual GPR for `d` and `phi`
-3. Step 2 physics-informed GPR for `UTS`
+3. Step 2 physics-informed GPR for `YS`
 4. Step 3 inverse optimization
 
 ### Ablation Study
