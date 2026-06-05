@@ -9,8 +9,17 @@ This repository contains a research pipeline for modeling the relationship betwe
 The workflow is organized into three main stages:
 
 1. Learn intermediate structure descriptors from process parameters.
-2. Use those descriptors inside a physics-informed GPR model for strength prediction.
+2. Transform those descriptors via Hall-Petch and porosity-strength relations and use them inside a physics-informed GPR model for strength prediction.
 3. Solve an inverse design problem to search for process parameters that match target strength values.
+
+<p align="middle">
+  <img src="src/method.png" width="700" />
+</p>
+<p align="middle">
+    <em >Illustration of hierarchical physics-informed Gaussian process regression for yield strength prediction.</em>
+</p>
+
+The datasets for training are sourced from Luo et al. (https://www.sciencedirect.com/science/article/pii/S2214860422003128) and (https://www.sciencedirect.com/science/article/abs/pii/S2214860423004177.)
 
 An additional ablation script is included to compare baseline and physics-informed variants.
 
